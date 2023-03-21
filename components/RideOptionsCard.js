@@ -1,11 +1,23 @@
 import React from "react";
-import { Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView, Text, View, TouchableOpacity } from "react-native";
+import { Icon } from "react-native-elements";
+import tw from "tailwind-react-native-classnames";
 
 const RideOptionsCard = () => {
+  const navigation = useNavigation();
   return (
-    <SafeAreaView>
-      <Text>xxxx</Text>
+    <SafeAreaView style={tw`bg-white flex-grow`}>
+      <View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("NavigateCard")}
+          style={tw`absolute top-3 left-5 z-10 p-3 rounded-full`}
+        >
+          <Icon name="chevron-left" type="fontawesome" />
+        </TouchableOpacity>
+
+        <Text style={tw`text-center py-5 text-xl`}>Select a Ride</Text>
+      </View>
     </SafeAreaView>
   );
 };
