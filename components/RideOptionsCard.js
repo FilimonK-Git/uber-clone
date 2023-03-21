@@ -24,7 +24,7 @@ const data = [
   {
     id: "2",
     title: "Uber XL",
-    multiplier: 1,
+    multiplier: 1.5,
     image: "https://links.papareact.com/5w8",
   },
   {
@@ -34,6 +34,8 @@ const data = [
     image: "https://links.papareact.com/7pf",
   },
 ];
+const surgeCharge = 1.5;
+
 const RideOptionsCard = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
@@ -49,7 +51,7 @@ const RideOptionsCard = () => {
         </TouchableOpacity>
 
         <Text style={tw`text-center py-5 text-xl`}>
-          Select a Ride - {travelTimeInformation?.distance.text}
+          Select a Ride - {travelTimeInformation?.distance?.text}
         </Text>
       </View>
 
@@ -69,13 +71,23 @@ const RideOptionsCard = () => {
             />
             <View style={tw`-ml-6`}>
               <Text style={tw`text-xl font-semibold`}>{title}</Text>
-              <Text>Travel Time: {travelTimeInformation?.duration.text}</Text>
+              <Text>Travel Time: {travelTimeInformation?.duration?.text}</Text>
             </View>
-            <Text style={tw`text-xl`}>$20</Text>
+            <Text style={tw`text-xl`}>
+              {new Intl.NumberFormat("en-us", {
+                style: "currency",
+                currency: "USD",
+              }).format(
+                (travelTimeInformation?.duration.value *
+                  surgeCharge *
+                  multiplier) /
+                  100
+              )}
+            </Text>
           </TouchableOpacity>
         )}
       />
-      <View>
+      <View style={tw`mt-auto border-t border-gray-200`}>
         <TouchableOpacity
           disabled={!selected}
           style={tw`bg-black py-3 m-3 ${!selected && "bg-gray-300"}`}
