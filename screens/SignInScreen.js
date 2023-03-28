@@ -1,9 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input, Button } from "react-native-elements";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { SafeAreaView } from "react-native-safe-area-context";
+import tw from "tailwind-react-native-classnames";
 
 const auth = getAuth();
 
@@ -35,7 +36,7 @@ const SignInScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Signin screen!</Text>
+      {/* <Text>Signin screen!</Text> */}
 
       {!!value.error && (
         <View style={styles.error}>
@@ -49,7 +50,7 @@ const SignInScreen = () => {
           containerStyle={styles.control}
           value={value.email}
           onChangeText={(text) => setValue({ ...value, email: text })}
-          leftIcon={<Icon name="envelope" size={16} />}
+          // leftIcon={<Icon name="envelope" size={16} />}
         />
 
         <Input
@@ -58,10 +59,17 @@ const SignInScreen = () => {
           value={value.password}
           onChangeText={(text) => setValue({ ...value, password: text })}
           secureTextEntry={true}
-          leftIcon={<Icon name="key" size={16} />}
+          // leftIcon={<Icon name="key" size={16} />}
         />
-
-        <Button title="Sign in" buttonStyle={styles.control} onPress={signIn} />
+        <Pressable style={tw`bg-black rounded-3xl py-2 px-4 m-4`}>
+          <Text
+            style={tw`text-center text-white font-bold text-xl`}
+            onPress={signIn}
+          >
+            Sign In
+          </Text>
+        </Pressable>
+        {/* <Button title="Sign in" buttonStyle={styles.control} onPress={signIn} /> */}
       </View>
     </SafeAreaView>
   );
@@ -70,7 +78,9 @@ const SignInScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 80,
+    paddingLeft: 20,
+    paddingRight: 20,
     backgroundColor: "#fff",
     // alignItems: "center",
     // justifyContent: "center",
